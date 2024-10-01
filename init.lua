@@ -204,6 +204,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Set colorcolumn for Python
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'python',
+  command = 'setlocal colorcolumn=79',
+})
+
+-- Set colorcolumn for Rust
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'rust',
+  command = 'setlocal colorcolumn=100',
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -700,10 +712,22 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      },
+      -- Typically you would want to set this on a per-project basis using a config file,
+      -- e.g. putting the options in pyproject.toml.
+
+      -- If you instead want to configure it globally, you can pass in the --line-length
+      -- argument to the formatter. I have no idea where you got the syntax you are using,
+      -- but that is not the correct way to customize the arguments for a formatter.
+      -- You will want:
+      formatters = {
+        black = {
+          prepend_args = { '--line-length', '79' },
+        },
       },
     },
   },
