@@ -251,6 +251,38 @@ require('lazy').setup({
   --
   { 'ellisonleao/gruvbox.nvim', priority = 1000, config = true, opts = ... },
 
+  -- Rust-related plugins
+  --
+  -- {
+  -- 'mrcjkb/rustaceanvim',
+  -- version = '^5', -- Recommended
+  -- lazy = false, -- This plugin is already lazy
+  -- },
+  -- { -- For inline type-hinting
+  -- 'simrat39/rust-tools.nvim',
+  -- },
+  -- { -- rustaceanvim seems to take care of autocomplete on save already
+  -- 'rust-lang/rust.vim',
+  -- ft = 'rust',
+  -- init = function()
+  -- vim.g.rustfmt_autosave = 1
+  -- end,
+  -- },
+  { -- Show latest crate versions and crate suggestions
+    'saecki/crates.nvim',
+    ft = { 'toml' },
+    config = function()
+      require('crates').setup {
+        completion = {
+          cmp = { enabled = true },
+        },
+      }
+      require('cmp').setup.buffer {
+        sources = { { name = 'crates' } },
+      }
+    end,
+  },
+
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
