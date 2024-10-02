@@ -258,6 +258,9 @@ require('lazy').setup({
   -- version = '^5', -- Recommended
   -- lazy = false, -- This plugin is already lazy
   -- },
+  -- { -- For inline type-hinting
+  -- 'simrat39/rust-tools.nvim',
+  -- },
   -- { -- rustaceanvim seems to take care of autocomplete on save already
   -- 'rust-lang/rust.vim',
   -- ft = 'rust',
@@ -650,7 +653,44 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {
+          settings = {
+            ['rust-analyzer'] = {
+              assist = {
+                importGranularity = 'module',
+                importPrefix = 'by_self',
+              },
+              cargo = {
+                allFeatures = true,
+              },
+              checkOnSave = {
+                command = 'clippy',
+              },
+              procMacro = {
+                enable = true,
+              },
+              inlayHints = {
+                typeHints = {
+                  enable = true, -- Enable type hints
+                },
+                lifetimeElisionHints = {
+                  enable = true, -- Show lifetime elision hints
+                  useParameterNames = true,
+                },
+                reborrowHints = {
+                  enable = true, -- Show reborrow hints
+                },
+                closureReturnTypeHints = {
+                  enable = true, -- Show hints for closure return types
+                },
+                parameterHints = {
+                  enable = true, -- Show hints for parameters in function calls
+                },
+              },
+            },
+          },
+        },
+
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -701,7 +741,6 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
-            rust_analyzer = function() end
           end,
         },
       }
