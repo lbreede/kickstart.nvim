@@ -253,11 +253,11 @@ require('lazy').setup({
 
   -- Rust-related plugins
   --
-  {
-    'mrcjkb/rustaceanvim',
-    version = '^5', -- Recommended
-    lazy = false, -- This plugin is already lazy
-  },
+  -- {
+  -- 'mrcjkb/rustaceanvim',
+  -- version = '^5', -- Recommended
+  -- lazy = false, -- This plugin is already lazy
+  -- },
   -- { -- rustaceanvim seems to take care of autocomplete on save already
   -- 'rust-lang/rust.vim',
   -- ft = 'rust',
