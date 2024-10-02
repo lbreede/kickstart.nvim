@@ -251,6 +251,10 @@ require('lazy').setup({
   --
   { 'ellisonleao/gruvbox.nvim', priority = 1000, config = true, opts = ... },
 
+  -- Python-related plugins
+  --
+  -- { '' },
+
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
   --    require('gitsigns').setup({ ... })
@@ -620,7 +624,18 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {
+          -- Custom settings for Pyright (Python LSP)
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = 'strict', -- Options: "off", "basic", "strict"
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+              },
+            },
+          },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
