@@ -131,6 +131,13 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
 
+-- Set colorcolumn to 80
+-- Except for Rust, which is 100
+-- And Python, which is 79
+vim.opt.colorcolumn = '80'
+vim.api.nvim_create_autocmd('Filetype', { pattern = 'rust', command = 'set colorcolumn=100' })
+vim.api.nvim_create_autocmd('Filetype', { pattern = 'python', command = 'set colorcolumn=79' })
+
 -- Decrease update time
 vim.o.updatetime = 250
 
